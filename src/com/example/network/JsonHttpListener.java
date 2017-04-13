@@ -27,7 +27,8 @@ public class JsonHttpListener<M> implements IHttpListener {
 		String content = convertStreamToString(inputStream);
 		Gson gson = new Gson();
 		final M m = gson.fromJson(content, responseClass);
-		handler.post(new Runnable() {
+		System.out.println();
+		boolean result = handler.post(new Runnable() {
 
 			@Override
 			public void run() {
@@ -36,7 +37,7 @@ public class JsonHttpListener<M> implements IHttpListener {
 				}
 			}
 		});
-
+		System.out.println();
 	}
 
 	@Override

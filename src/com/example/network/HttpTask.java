@@ -1,5 +1,6 @@
 package com.example.network;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -12,30 +13,26 @@ public class HttpTask<T> implements Runnable {
 	public <T> HttpTask(T requestInfo, String url, IHttpListener listener) {
 		this.service = new JsonHttpService();
 		this.service.setUrl(url);
-
+		this.service.setHttpCallBack(listener);
 		if (requestInfo != null) {
 			Gson gson = new Gson();
-			Type type = new TypeToken<T>() {
-			}.getType();
+			Type type = new TypeToken<T>() {}.getType();
 			String gStr = gson.toJson(requestInfo, type);
+			try {
+				service.setRequestData(gStr.getBytes("utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
 
 	void excute() {
+		
 	}
 
 	@Override
 	public void run() {
 		service.excue();
 	}
-
-	public Type getEType() {
-      ParameterizedType pType = (ParameterizedType) this.getClass().;
-      Type[] types = pType.getActualTypeArguments();
-      if (types.length > 1) {
-          return types[1];
-      } else {
-          return types[0];
-      }
-  }}
+}

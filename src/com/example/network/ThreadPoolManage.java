@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @description
  */
 public class ThreadPoolManage {
-	public static volatile ThreadPoolManage threadPoolManage = null;
+	private static volatile ThreadPoolManage threadPoolManage = null;
 	private static ThreadPoolExecutor threadPoolExecutor;
 	/**
 	 * 线程池满了就放到这个队列里
