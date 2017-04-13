@@ -7,7 +7,7 @@ import java.io.InputStream;
  * @date 2017-4-8下午9:56:18
  * @description 处理请求结果
  */
-public interface IHttpListener {
+public interface IHttpListener<M> {
 	void onSuccess(InputStream inputStream);
 	void onError();
 }
