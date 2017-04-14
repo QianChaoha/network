@@ -1,12 +1,8 @@
 package com.example.network;
 
 
-import com.alibaba.fastjson.JSON;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends Activity {
@@ -31,6 +27,5 @@ public class MainActivity extends Activity {
 				
 			}
 		});
-//		 System.out.println(JSON.toJSONString(user));  
 	}
 }
