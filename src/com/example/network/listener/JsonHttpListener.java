@@ -1,4 +1,4 @@
-package com.example.network;
+package com.example.network.listener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,12 +22,13 @@ public class JsonHttpListener<M> implements IHttpListener<M> {
 	public JsonHttpListener(Class<M> responseClass, IDataListener<M> listener) {
 		super();
 		 this.responseClass = responseClass;
-		this.listener = listener;
+		 this.listener = listener;
 	}
 
 	@Override
 	public void onSuccess(InputStream inputStream) {
 		String content = convertStreamToString(inputStream);
+		Log.e("Reponse", content);
 		Gson gson = new Gson();
 		final M m=gson.fromJson(content, responseClass);
 		boolean result = handler.post(new Runnable() {
@@ -38,12 +40,10 @@ public class JsonHttpListener<M> implements IHttpListener<M> {
 				}
 			}
 		});
-		System.out.println();
 	}
 
 	public Type getType() {
 		Type type = new TypeToken<M>() {}.getType();
-		System.out.println("type  "+type);
 		return type;
 	}
 

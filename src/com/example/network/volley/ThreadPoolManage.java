@@ -1,4 +1,4 @@
-package com.example.network;
+package com.example.network.volley;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.FutureTask;
@@ -18,11 +18,14 @@ public class ThreadPoolManage {
 	private static volatile ThreadPoolManage threadPoolManage = null;
 	private static ThreadPoolExecutor threadPoolExecutor;
 	/**
-	 * 线程池满了就放到这个队列里
+	 * 阻塞队列,将需要执行的线程放到这个队列里,线程池执行的线程就是取自此队列
 	 */
 	private LinkedBlockingQueue<FutureTask<?>> service = new LinkedBlockingQueue<FutureTask<?>>();
 	/**
-	 * 拒绝策略
+	 * 当Executor已经关闭（即执行了executorService.shutdown()方法后），并且Executor将有限边界
+	 * 用于最大线程数量和工作队列容量，且已经饱和时，在方法execute()中提交的新任务将被拒绝。
+	 * 在以上述情况下，execute 方法将调用其 RejectedExecutionHandler 的 
+	 * RejectedExecutionHandler.rejectedExecution() 方法。
 	 */
 	private RejectedExecutionHandler handler = new RejectedExecutionHandler() {
 
@@ -73,6 +76,8 @@ public class ThreadPoolManage {
 		threadPoolExecutor = new ThreadPoolExecutor(4, 10, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10));
 		// 执行一个请求
 		threadPoolExecutor.execute(runnable);
+		// 设置线程池的拒绝策略为handler    
+		threadPoolExecutor.setRejectedExecutionHandler(handler);
 	}
 
 	public static ThreadPoolManage getThreadPoolManage() {

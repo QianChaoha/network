@@ -1,4 +1,6 @@
-package com.example.network;
+package com.example.network.service;
+
+import com.example.network.listener.IHttpListener;
 
 public interface IHttpService {
 	void setUrl(String url);

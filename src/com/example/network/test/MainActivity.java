@@ -1,5 +1,10 @@
-package com.example.network;
+package com.example.network.test;
 
+
+import com.example.network.R;
+import com.example.network.R.layout;
+import com.example.network.listener.IDataListener;
+import com.example.network.volley.Volley;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,7 +19,7 @@ public class MainActivity extends Activity {
 	}
 	public void requestNetwork(View view) {
 		User user=new User("zhangsan", 20);
-		String url="http://apis.juhe.cn/mobile/get";
+		String url="http://op.juhe.cn/trainTickets/cityCode";
 		Volley.sendRequest(user, url, BaseData.class, new IDataListener<BaseData>() {
 
 			@Override
